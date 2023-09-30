@@ -54,6 +54,18 @@ body {
   width: 4em;
 }
 
+.score-container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 2em auto 1em;
+  visibility: hidden;
+}
+
+.lives, .score {
+  width: 50%;
+}
+
 .guess-flag {
   display: flex;
   align-items: baseline;
@@ -67,8 +79,8 @@ body {
   visibility: hidden;
   margin: 2em auto 0;
   width: 100%;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  /* border-top-left-radius: 5px; */
+  /* border-bottom-left-radius: 5px; */
 }
 
 .guess-holder {
@@ -111,6 +123,12 @@ body {
 } */
 
 .check-flag {
+  visibility: hidden;
+  /* border-top-right-radius: 5px; */
+  /* border-bottom-right-radius: 5px; */
+}
+
+.clear {
   visibility: hidden;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
