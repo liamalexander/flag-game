@@ -42,7 +42,7 @@ body {
   /* box-shadow: 2px 2px 2px navy; */
 }
 
-.get-flag:active, .check-flag:active {
+.get-flag:active, .check-flag:active, .clear:active {
   transform: translateY(.2em);
 }
 
