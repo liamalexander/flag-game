@@ -4,10 +4,12 @@ const flag = document.querySelector(".flag");
 const guessField = document.querySelector(".guess");
 const checkFlag = document.querySelector(".check-flag");
 const guessOptions = document.querySelector(".guess-options");
-const cleatBtn = document.querySelector(".clear");
+const clearBtn = document.querySelector(".clear");
 const scoreDisplay = document.querySelector(".score-container");
 const livesHolder = document.querySelector(".lives");
 const scoreHolder = document.querySelector(".score");
+const gameOverHolder = document.querySelector(".game-over");
+const PlayAgainBtn = document.querySelector(".play-again-btn");
 
 let randomNumber;
 let data;
@@ -22,7 +24,7 @@ const getData = async function () {
   flag.src = data[randomNumber].flags.png;
   guessField.style.visibility = "visible";
   checkFlag.style.visibility = "visible";
-  cleatBtn.style.visibility = "visible";
+  clearBtn.style.visibility = "visible";
   scoreDisplay.style.visibility = "visible";
   livesHolder.textContent = `Lives: ${lives.join("  ")}`;
 };
@@ -34,9 +36,16 @@ const checkAnswer = function () {
     scoreHolder.textContent = `Score: ${score}`;
     getData();
   } else if (lives.length === 1) {
-    guessField.style.background = "red";
     lives.pop();
     livesHolder.textContent = `Lives: ${lives.join("  ")}`;
+    flag.style.visibility = "hidden";
+    scoreDisplay.style.visibility = "hidden";
+    guessField.style.visibility = "hidden";
+    checkFlag.style.visibility = "hidden";
+    clearBtn.style.visibility = "hidden";
+    guessOptions.style.visibility = "hidden";
+    gameOverHolder.style.visibility = "visible";
+    score = 0;
   } else {
     lives.pop();
     livesHolder.textContent = `Lives: ${lives.join("  ")}`;
@@ -75,18 +84,24 @@ const clearInput = function() {
   guessOptions.textContent = "";
 };
 
+const replayGame = function() {
+  score = 0;
+  getData();
+  gameOverHolder.style.visibility = "hidden";
+  lives = ["\u2665", "\u2665", "\u2665"];
+};
+
 guessField.addEventListener("keyup", filterCountries);
 
-// ADD A CORRECT / INCORRECT DISPLAY MSG AND REMOVE THE COLOURS IN BACKGROUND - animation that all screen goes
-//  green or red for a second or so...from top to bottom or left to right?  or change the guess background
-//  for only a second or 2 - then back to normal
-// MAKE IT MORE OF A GAME - add 3 lives and a score (to the top AFTER clicking flag)
+// ADD A CORRECT / INCORRECT DISPLAY MSG AND REMOVE THE COLOURS IN BACKGROUND
 // WHEN CLICK DOWN ON KEYBOARD, SCROLL THROUGH OPTIONS
-// MAKE HEARTS RED AND BIGGER TEXT AND HEARTS - use lives.length to get game over
 // LIMIT # OF LI ITEMS TO 5-8, "AND" BRINGS TOO MANY AND IT FILLS SCREEN
 // CHANGE SIZE ON LAPTOP AND TABLET
 // STYLE BTNS BETTER - ANIMATE THEM ON CLICK
 // MAKE GUESS BAR TALLER - IT'S TOO SMALL ON MOBILES
+// REMOVE "FLAG" BTN AFTER STARTING - DISPLAY A PLAY AGAIN BTN ON GAME OVER
+// SORT OUT "SCORE" AFTER CLICKING "PLAY AGAIN" - IT'S KEEPING THE OLD SCORE
+// GAMEPLAY DOESN'T WORK PROPERLY ON PLAY AGAIN - SCROLL BAR NOT COMING UP WITH LIST OF COUNTRIES
 
 getFlag.addEventListener("click", getData);
 
@@ -94,4 +109,6 @@ checkFlag.addEventListener("click", checkAnswer);
 
 guessOptions.addEventListener("click", fillInput);
 
-cleatBtn.addEventListener("click", clearInput);
+clearBtn.addEventListener("click", clearInput);
+
+PlayAgainBtn.addEventListener("click", replayGame);
